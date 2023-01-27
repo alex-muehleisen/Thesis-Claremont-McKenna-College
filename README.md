@@ -12,6 +12,3 @@ In the following paper, data pertaining to educational shifts during the COVID-1
 3. Predicting Student Performance through Classification
 4. Trends in the impact of COVID-19 on Education
 5. Random Forest Model on the Importance of factors in Online-Learning 
-
-
-
