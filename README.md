@@ -13,7 +13,7 @@ In the following paper, data pertaining to educational shifts during the COVID-1
 4. Trends in the impact of COVID-19 on Education
 5. Random Forest Model on the Importance of factors in Online-Learning 
 
-## Example Code (from analysis of External Factors on Student Performance):
+## Example Code (from Analysis of External Factors on Student Performance):
 
 ### Initial Linear Model:
 
