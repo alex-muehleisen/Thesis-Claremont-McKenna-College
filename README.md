@@ -25,9 +25,7 @@ Xbtrain,Xbtest,ybtrain,ybtest = train_test_split(Xb_scaled, yb, test_size=0.2, r
 lin_mod_b = LinearRegression()
 lin_mod_b.fit(Xbtrain, ybtrain)
 lin_mod_b_score = lin_mod_b.score(Xbtest, ybtest)
-lin_mod_b_score
 coefficients_b = lin_mod_b.coef_
-coefficients_b
 ```
 
 ### Adding Polynomial Features:
