@@ -12,3 +12,55 @@ In the following paper, data pertaining to educational shifts during the COVID-1
 3. Predicting Student Performance through Classification
 4. Trends in the impact of COVID-19 on Education
 5. Random Forest Model on the Importance of factors in Online-Learning 
+
+## Example Code (from analysis of External Factors on Student Performance):
+
+### Initial Linear Model:
+
+```
+Xb = hsls_rna2[['X1FAMINCOME', 'X1DUALLANG', 'X1TMEFF']]
+yb = hsls_rna2[['X1TXMTH']]
+Xb_scaled = StandardScaler().fit_transform(Xb)
+Xbtrain,Xbtest,ybtrain,ybtest = train_test_split(Xb_scaled, yb, test_size=0.2, random_state=10)
+lin_mod_b = LinearRegression()
+lin_mod_b.fit(Xbtrain, ybtrain)
+lin_mod_b_score = lin_mod_b.score(Xbtest, ybtest)
+lin_mod_b_score
+coefficients_b = lin_mod_b.coef_
+coefficients_b
+```
+
+### Adding Polynomial Features:
+```
+polypipe_b = make_pipeline(PolynomialFeatures(4),LinearRegression())
+polypipe_b.fit(Xbtrain, ybtrain)
+polyscore_b = polypipe_b.score(Xbtest, ybtest)
+```
+
+### Adding Regularization:
+
+```
+polypipe2_b = make_pipeline(PolynomialFeatures(), Ridge())
+grid_b = {'polynomialfeatures__degree':[1, 2, 3, 4, 5],'ridge__alpha':[.001,.01,.1, 1, 10, 100, 1000]}
+search_b = GridSearchCV(polypipe2_b, grid_b)
+search_b.fit(Xbtrain, ybtrain)
+best_score_b = search_b.best_estimator_.score(Xbtest, ybtest)
+best_degree_b = search_b.best_params_
+```
+
+### Predicting Scores through Classification:
+
+```
+kb = KBinsDiscretizer(n_bins=3,encode='ordinal')
+ybins = kb.fit_transform(hsls_rna[['X1TXMTH']])[:,0]
+```
+
+### Adding a Support Vector Machine:
+
+```
+X2train,X2test,y2train,y2test = train_test_split(X_scaled, ybins, test_size=0.2, random_state=10)
+
+svc = SVC(kernel='poly', degree=3, C=10)
+svc.fit(X2train, y2train)
+SVCscore = svc.score(X2test, y2test)
+```
